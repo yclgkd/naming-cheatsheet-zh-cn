@@ -1,157 +1,159 @@
 <p align="center">
   <a href="https://github.com/kettanaito/naming-cheatsheet">
-    <img src="./naming-cheatsheet.png" alt="Naming cheatsheet" />
+    <img src="./naming-cheatsheet.png" alt="命名速查表" />
   </a>
 </p>
 
-# Naming cheatsheet
+这里是 [Naming cheatsheet](https://github.com/kettanaito/naming-cheatsheet#naming-cheatsheet) 的中文翻译版本。
 
-- [English language](#english-language)
-- [Naming convention](#naming-convention)
+# 命名速查表
+
+- [使用英语](#使用英语)
+- [约定命名规则](#约定命名规则)
 - [S-I-D](#s-i-d)
-- [Avoid contractions](#avoid-contractions)
-- [Avoid context duplication](#avoid-context-duplication)
-- [Reflect the expected result](#reflect-the-expected-result)
-- [Naming functions](#naming-functions)
-  - [A/HC/LC pattern](#ahclc-pattern)
-    - [Actions](#actions)
-    - [Context](#context)
-    - [Prefixes](#prefixes)
-- [Singular and Plurals](#singular-and-plurals)
+- [避免缩写](#避免缩写)
+- [避免上下文重复](#避免上下文重复)
+- [反映预期结果](#反映预期结果)
+- [函数命名](#函数命名)
+  - [A/HC/LC 模式](#ahclc-模式)
+    - [动作](#动作)
+    - [上下文](#上下文)
+    - [前缀](#前缀)
+- [单复数](#单复数)
 
 ---
 
-Naming things is hard. This sheet attempts to make it easier.
+给变量和函数命名是很难的，这张表试图让它变得更容易。
 
-Although these suggestions can be applied to any programming language, I will use JavaScript to illustrate them in practice.
+尽管这些建议可以适用于任何编程语言，但我将用 JavaScript 的例子来解释和说明。
 
-## English language
+## 使用英语
 
-Use English language when naming your variables and functions.
+在命名变量和函数时要使用英语。
 
 ```js
-/* Bad */
+/* 不好的 */
 const primerNombre = 'Gustavo'
 const amigos = ['Kate', 'John']
 
-/* Good */
+/* 好的 */
 const firstName = 'Gustavo'
 const friends = ['Kate', 'John']
 ```
 
-> Like it or not, English is the dominant language in programming: the syntax of all programming languages is written in English, as well as countless documentations and educational materials. By writing your code in English you dramatically increase its cohesiveness.
+> 不管你喜欢与否，英语是编程中的主流语言：所有编程语言的语法都是用英语写的，无数的文档和教学资料也是如此。通过使用英语编写代码，你可以极大地提高代码的凝聚力。
 
-## Naming convention
+## 约定命名规则
 
-Pick **one** naming convention and follow it. It may be `camelCase`, `PascalCase`, `snake_case`, or anything else, as long as it remains consistent. Many programming languages have their own traditions regarding naming conventions; check the documentation for your language or study some popular repositories on Github!
+挑选**一个**命名规则并遵循它。它可以是 `camelCase`、`PascalCase`、`snake_case` 或其他任何规则，只要代码中保持一致即可。许多编程语言在命名规则方面有着自己的约定，你可以查看编程语言文档或研究 Github 上的一些流行的存储库。
 
 ```js
-/* Bad */
+/* 不好的 */
 const page_count = 5
 const shouldUpdate = true
 
-/* Good */
+/* 好的 */
 const pageCount = 5
 const shouldUpdate = true
 
-/* Good as well */
+/* 同样好的 */
 const page_count = 5
 const should_update = true
 ```
 
 ## S-I-D
 
-A name must be _short_, _intuitive_ and _descriptive_:
+名字必须 _简短_、 _直观_ 和具有 _描述性_。
 
-- **Short**. A name must not take long to type and, therefore, remember;
-- **Intuitive**. A name must read naturally, as close to the common speech as possible;
-- **Descriptive**. A name must reflect what it does/possesses in the most efficient way.
+- **简短（Short）**：名字必须不需要花很长时间来输入，因此也不需要被记住。
+- **直观（Intuitive）**：名字必须读起来自然，尽可能地接近常用说法。  
+- **描述性（Descriptive）**：名字必须以最有效的方式反映它所做的/所拥有的。
 
 ```js
-/* Bad */
-const a = 5 // "a" could mean anything
-const isPaginatable = a > 10 // "Paginatable" sounds extremely unnatural
-const shouldPaginatize = a > 10 // Made up verbs are so much fun!
+/* 不好的 */
+const a = 5 // "a" 可以指代任何东西
+const isPaginatable = a > 10 // "Paginatable" 听起来不自然
+const shouldPaginatize = a > 10 // paginatize 是自创的动词
 
-/* Good */
+/* 好的 */
 const postCount = 5
 const hasPagination = postCount > 10
-const shouldPaginate = postCount > 10 // alternatively
+const shouldPaginate = postCount > 10 // 和 hasPagination 二选一
 ```
 
-## Avoid contractions
+## 避免缩写
 
-Do **not** use contractions. They contribute to nothing but decreased readability of the code. Finding a short, descriptive name may be hard, but contraction is not an excuse for not doing so.
+避免使用缩写，它们只会降低代码的可读性。找到一个简短的、具有描述性的名字可能很难，但这不是使用缩写的借口。
 
 ```js
-/* Bad */
+/* 不好的 */
 const onItmClk = () => {}
 
-/* Good */
+/* 好的 */
 const onItemClick = () => {}
 ```
 
-## Avoid context duplication
+## 避免上下文重复
 
-A name should not duplicate the context in which it is defined. Always remove the context from a name if that doesn't decrease its readability.
+名字不应该与它所定义的上下文重复。如果删除上下文不降低名字的可读性，就一定要把它从名字中删除。
 
 ```js
 class MenuItem {
-  /* Method name duplicates the context (which is "MenuItem") */
+  /* 方法名与上下文（"MenuItem"）重复 */
   handleMenuItemClick = (event) => { ... }
 
-  /* Reads nicely as `MenuItem.handleClick()` */
+  /* `MenuItem.handleClick()` 看起来舒服很多 */
   handleClick = (event) => { ... }
 }
 ```
 
-## Reflect the expected result
+## 反映预期结果
 
-A name should reflect the expected result.
+名字应该反映出预期的结果。
 
-```jsx
-/* Bad */
+```js
+/* 不好的 */
 const isEnabled = itemCount > 3
 return <Button disabled={!isEnabled} />
 
-/* Good */
+/* 好的 */
 const isDisabled = itemCount <= 3
 return <Button disabled={isDisabled} />
 ```
 
 ---
 
-# Naming functions
+## 函数命名
 
-## A/HC/LC Pattern
+### A/HC/LC 模式
 
-There is a useful pattern to follow when naming functions:
+在给函数命名时有一个可用的公式可以遵循：
 
 ```
 prefix? + action (A) + high context (HC) + low context? (LC)
 ```
 
-Take a look at how this pattern may be applied in the table below.
+在下面的表格中看看这个模式如何被应用。
 
-| Name                   | Prefix   | Action (A) | High context (HC) | Low context (LC) |
+| 名字                   | 前缀     | 动作 (A)    | 强语境 (HC)        | 弱语境 (LC)      |
 | ---------------------- | -------- | ---------- | ----------------- | ---------------- |
 | `getUser`              |          | `get`      | `User`            |                  |
 | `getUserMessages`      |          | `get`      | `User`            | `Messages`       |
 | `handleClickOutside`   |          | `handle`   | `Click`           | `Outside`        |
 | `shouldDisplayMessage` | `should` | `Display`  | `Message`         |                  |
 
-> **Note:** The order of context affects the meaning of a variable. For example, `shouldUpdateComponent` means _you_ are about to update a component, while `shouldComponentUpdate` tells you that _component_ will update on itself, and you are but controlling when it should be updated.
-> In other words, **high context emphasizes the meaning of a variable**.
+> **注意**：上下文的顺序会影响变量的含义。例如，`shouldUpdateComponent` 意味着你要手动更新组件，而`shouldComponentUpdate` 告诉你组件会自动更新，而你只是控制更新的时间。  
+> 换句话说，**强语境强调了变量的含义**。
 
 ---
 
-## Actions
+### 动作
 
-The verb part of your function name. The most important part responsible for describing what the function _does_.
+函数名的动词部分，它是函数名中最重要的部分，负责描述这个函数 _做_ 了什么。
 
-### `get`
+#### `get`
 
-Accesses data immediately (i.e. shorthand getter of internal data).
+立即访问数据（例如：内部数据的速记器）。
 
 ```js
 function getFruitCount() {
@@ -159,9 +161,9 @@ function getFruitCount() {
 }
 ```
 
-> See also [compose](#compose).
+> 另见 [compose](#compose)。
 
-You can use `get` when performing asynchronous operations as well:
+在执行异步操作时，你也可以使用 **get**。
 
 ```js
 async function getUser(id) {
@@ -170,9 +172,9 @@ async function getUser(id) {
 }
 ```
 
-### `set`
+#### `set`
 
-Sets a variable in a declarative way, with value `A` to value `B`.
+以声明的方式设置一个变量，将 **A** 设置为 **B**。
 
 ```js
 let fruits = 0
@@ -185,9 +187,9 @@ setFruits(5)
 console.log(fruits) // 5
 ```
 
-### `reset`
+#### `reset`
 
-Sets a variable back to its initial value or state.
+将一个变量设置为它的初始值或状态。
 
 ```js
 const initialFruits = 5
@@ -203,11 +205,11 @@ resetFruits()
 console.log(fruits) // 5
 ```
 
-### `remove`
+#### `remove`
 
-Removes something _from_ somewhere.
+从某个地方移走某样东西。
 
-For example, if you have a collection of selected filters on a search page, removing one of them from the collection is `removeFilter`, **not** `deleteFilter` (and this is how you would naturally say it in English as well):
+举个例子，如果你在搜索页面上有一个所选过滤器的集合，从集合中移除其中一个过滤器就是 `removeFilter`，而**不是** `deleteFilter`（这也是英语中的自然表达）：
 
 ```js
 function removeFilter(filterName, filters) {
@@ -218,13 +220,13 @@ const selectedFilters = ['price', 'availability', 'size']
 removeFilter('price', selectedFilters)
 ```
 
-> See also [delete](#delete).
+> 另见 [delete](#delete)。
 
-### `delete`
+#### `delete`
 
-Completely erases something from the realms of existence.
+从真实的空间完全擦除某样东西。
 
-Imagine you are a content editor, and there is that notorious post you wish to get rid of. Once you clicked a shiny "Delete post" button, the CMS performed a `deletePost` action, **not** `removePost`.
+想象一下，你是一个内容编辑者。那儿有一个臭名昭著的帖子，你想把它删掉。一旦你点击了一个闪亮的“删除帖子”按钮，CMS 执行的是 `deletePost` 动作，而不是 `removePost`。
 
 ```js
 function deletePost(id) {
@@ -232,19 +234,19 @@ function deletePost(id) {
 }
 ```
 
-> See also [remove](#remove).
+> 另见 [remove](#remove)。
 
-> **`remove` or `delete`?**
+> **`移除` 还是 `删除`?**
 >
-> When the difference between `remove` and `delete` is not so obvious to you, I'd suggest looking at their opposite actions - `add` and `create`.
-> The key difference between `add` and `create` is that `add` needs a destination while `create` **requires no destination**. You `add` an item _to somewhere_, but you don't "`create` it _to somewhere_".
-> Simply pair `remove` with `add` and `delete` with `create`.
+> 当 `remove` 和 `delete` 之间的区别对你来说不是那么明显时，我建议你看看它们的相反动作—— `add` 和 `create`。
+> `add` 和 `create` 的关键区别是 `add` 需要一个目的地，而 `create` **不需要目的地**。你 `add` 某样东西 _去某个地方_，不是 “`create` 它 _去某个地方_”。
+> 你只需知道 `remove` 与 `add` 是一对，`delete` 与 `create` 是一对。
 >
-> Explained in detail [here](https://github.com/kettanaito/naming-cheatsheet/issues/74#issue-1174942962).
+> [这里](https://github.com/kettanaito/naming-cheatsheet/issues/74#issue-1174942962)有详细的解释。
 
-### `compose`
+#### `compose`
 
-Creates new data from the existing one. Mostly applicable to strings, objects, or functions.
+从现有的数据中创建新的数据。主要适用于字符串、对象或函数。
 
 ```js
 function composePageUrl(pageName, pageId) {
@@ -252,11 +254,11 @@ function composePageUrl(pageName, pageId) {
 }
 ```
 
-> See also [get](#get).
+> 另见 [get](#get)。
 
-### `handle`
+#### `handle`
 
-Handles an action. Often used when naming a callback method.
+处理一个动作。通常在命名回调方法的时候使用。
 
 ```js
 function handleLinkClick() {
@@ -268,62 +270,62 @@ link.addEventListener('click', handleLinkClick)
 
 ---
 
-## Context
+### 上下文
 
-A domain that a function operates on.
+函数所操作的域。
 
-A function is often an action on _something_. It is important to state what its operable domain is, or at least an expected data type.
+函数通常是对 _某物_ 的操作。重要的是要说明它可操作的域，或者至少说明预期的数据类型是什么。
 
 ```js
-/* A pure function operating with primitives */
+/* 使用原语操作的纯函数 */
 function filter(list, predicate) {
   return list.filter(predicate)
 }
 
-/* Function operating exactly on posts */
+/* 对文章精确处理的函数 */
 function getRecentPosts(posts) {
   return filter(posts, (post) => post.date === Date.now())
 }
 ```
 
-> Some language-specific assumptions may allow omitting the context. For example, in JavaScript, it's common that `filter` operates on Array. Adding explicit `filterArray` would be unnecessary.
+> 在一些特定的语言中可能允许省略上下文。例如，在 JavaScript 中，`filter` 通常是对 Array 的操作。添加明确的 `filterArray` 就没有必要了。
 
 ---
 
-## Prefixes
+### 前缀
 
-Prefix enhances the meaning of a variable. It is rarely used in function names.
+前缀增强了变量的含义。它很少在函数名中使用。
 
-### `is`
+#### `is`
 
-Describes a characteristic or state of the current context (usually `boolean`).
+描述了当前环境的特征或状态（通常是布尔值）。
 
 ```js
 const color = 'blue'
-const isBlue = color === 'blue' // characteristic
-const isPresent = true // state
+const isBlue = color === 'blue' // 特征
+const isPresent = true // 状态
 
 if (isBlue && isPresent) {
   console.log('Blue is present!')
 }
 ```
 
-### `has`
+#### `has`
 
-Describes whether the current context possesses a certain value or state (usually `boolean`).
+描述了当前环境是否拥有某个值或某种状态（通常变量值是布尔类型）。
 
 ```js
-/* Bad */
+/* 不好的 */
 const isProductsExist = productsCount > 0
 const areProductsPresent = productsCount > 0
 
-/* Good */
+/* 好的 */
 const hasProducts = productsCount > 0
 ```
 
-### `should`
+#### `should`
 
-Reflects a positive conditional statement (usually `boolean`) coupled with a certain action.
+反映了一个积极的条件语句与某种行动的结合（通常变量值是布尔类型）。
 
 ```js
 function shouldUpdateUrl(url, expectedUrl) {
@@ -331,25 +333,24 @@ function shouldUpdateUrl(url, expectedUrl) {
 }
 ```
 
-### `min`/`max`
+#### `min`/`max`
 
-Represents a minimum or maximum value. Used when describing boundaries or limits.
+代表最小值或最大值。在描述边界或限制时使用。
 
 ```js
 /**
- * Renders a random amount of posts within
- * the given min/max boundaries.
+ * 根据最小/最大的边界范围，渲染随机数量的帖子。
  */
 function renderPosts(posts, minPosts, maxPosts) {
   return posts.slice(0, randomBetween(minPosts, maxPosts))
 }
 ```
 
-### `prev`/`next`
+#### `prev`/`next`
 
-Indicate the previous or the next state of a variable in the current context. Used when describing state transitions.
+表明变量在当前环境中的上一个或下一个状态。在描述状态转换时使用。
 
-```jsx
+```js
 async function getPosts() {
   const prevPosts = this.state.posts
 
@@ -360,16 +361,18 @@ async function getPosts() {
 }
 ```
 
-## Singular and Plurals
+---
 
-Like a prefix, variable names can be made singular or plural depending on whether they hold a single value or multiple values.
+### 单复数
+
+像前缀一样，变量名可以是单数或是复数，这取决于变量是有一个值还是多个值。
 
 ```js
-/* Bad */
+/* 不好的 */
 const friends = 'Bob'
 const friend = ['Bob', 'Tony', 'Tanya']
 
-/* Good */
+/* 好的 */
 const friend = 'Bob'
 const friends = ['Bob', 'Tony', 'Tanya']
 ```
